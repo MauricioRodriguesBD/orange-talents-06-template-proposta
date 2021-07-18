@@ -1,5 +1,6 @@
 package com.zup.academy.mauricio.proposta.criaproposta;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class Proposta {
 
 	@CpfOrCnpj
 	@NotNull
+	@Column()
 	private String documento;
 
 	@Email
