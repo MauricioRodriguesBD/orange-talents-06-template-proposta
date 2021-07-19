@@ -2,6 +2,7 @@ package com.zup.academy.mauricio.proposta.criaproposta;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +39,10 @@ public class Proposta {
 	@Positive
 	private Double salario;
 
+	@Enumerated
+	@NotNull
+	private StatusAvaliacao statusAvaliacao;
+
 	@Deprecated
 	private Proposta() {
 	}
@@ -50,6 +55,7 @@ public class Proposta {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
+		
 	}
 
 	public Long getId() {
@@ -74,6 +80,19 @@ public class Proposta {
 
 	public Double getSalario() {
 		return salario;
+	}
+
+	public StatusAvaliacao getStatusAvaliacao() {
+		return statusAvaliacao;
+	}
+	public void setStatus(RetornoAvaliacao status) {
+		if (status == RetornoAvaliacao.SEMRESTRICAO) {
+			this.statusAvaliacao = StatusAvaliacao.ELEGIVEL;
+		}
+		else if (status == RetornoAvaliacao.COMRESTRICAO){
+			this.statusAvaliacao = statusAvaliacao.NAOELEGIVEL;
+		}
+		
 	}
 
 }
