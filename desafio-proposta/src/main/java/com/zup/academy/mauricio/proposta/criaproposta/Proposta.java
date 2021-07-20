@@ -1,16 +1,19 @@
 package com.zup.academy.mauricio.proposta.criaproposta;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.zup.academy.mauricio.proposta.cartao.Cartao;
 import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.validador.CpfOrCnpj;
 
@@ -23,7 +26,7 @@ public class Proposta {
 
 	@CpfOrCnpj
 	@NotNull
-	@Column()
+	@Column(nullable = false)
 	private String documento;
 
 	@Email
@@ -41,8 +44,10 @@ public class Proposta {
 	private Double salario;
 
 	@Enumerated
-//	@NotNull
 	private StatusAvaliacao statusAvaliacao;
+
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Cartao cartao;
 
 	@Deprecated
 	private Proposta() {
@@ -56,7 +61,8 @@ public class Proposta {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.salario = salario;
-		
+		this.statusAvaliacao = statusAvaliacao;
+		this.cartao = cartao;
 	}
 
 	public Long getId() {
@@ -90,8 +96,9 @@ public class Proposta {
 	public void setStatusAvaliacao(StatusAvaliacao statusAvaliacao) {
 		this.statusAvaliacao = statusAvaliacao;
 	}
-	
-		
+
+	public Cartao getCartao() {
+		return cartao;
 	}
 
-
+}
