@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.validador.CpfOrCnpj;
 
 public class PropostaRequest {
@@ -29,7 +30,7 @@ public class PropostaRequest {
 	private Double salario;
 
 	@Enumerated(EnumType.STRING)
-	@NotNull
+//	@NotNull
 	private StatusAvaliacao statusAvaliacao;
 
 	public PropostaRequest(String documento, @Email @NotNull String email, @NotBlank String nome,

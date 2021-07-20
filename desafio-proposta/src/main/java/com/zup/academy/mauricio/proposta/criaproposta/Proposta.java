@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.validador.CpfOrCnpj;
 
 @Entity
@@ -40,7 +41,7 @@ public class Proposta {
 	private Double salario;
 
 	@Enumerated
-	@NotNull
+//	@NotNull
 	private StatusAvaliacao statusAvaliacao;
 
 	@Deprecated
@@ -85,14 +86,12 @@ public class Proposta {
 	public StatusAvaliacao getStatusAvaliacao() {
 		return statusAvaliacao;
 	}
-	public void setStatus(RetornoAvaliacao status) {
-		if (status == RetornoAvaliacao.SEMRESTRICAO) {
-			this.statusAvaliacao = StatusAvaliacao.ELEGIVEL;
-		}
-		else if (status == RetornoAvaliacao.COMRESTRICAO){
-			this.statusAvaliacao = statusAvaliacao.NAOELEGIVEL;
-		}
+
+	public void setStatusAvaliacao(StatusAvaliacao statusAvaliacao) {
+		this.statusAvaliacao = statusAvaliacao;
+	}
+	
 		
 	}
 
-}
+

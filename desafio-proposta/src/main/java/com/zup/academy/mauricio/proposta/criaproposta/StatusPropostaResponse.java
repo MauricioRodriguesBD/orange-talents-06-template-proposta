@@ -1,26 +1,22 @@
 package com.zup.academy.mauricio.proposta.criaproposta;
 
 public class StatusPropostaResponse {
-		
-	
+
 	private String documento;
-	
+
 	private String nome;
-	
+
 	private Long idProposta;
-	
-	private RetornoAvaliacao retorno;
 
-	private String status;
+	private String retorno;
 
-	public StatusPropostaResponse(String documento, String nome, Long idProposta, RetornoAvaliacao retorno,
-			String status) {
+	public StatusPropostaResponse(String documento, String nome, Long idProposta, String retorno, String status) {
 		super();
 		this.documento = documento;
 		this.nome = nome;
 		this.idProposta = idProposta;
 		this.retorno = retorno;
-		this.status = status;
+
 	}
 
 	public String getDocumento() {
@@ -35,14 +31,10 @@ public class StatusPropostaResponse {
 		return idProposta;
 	}
 
-	public RetornoAvaliacao getRetorno() {
+	public String getRetorno() {
 		return retorno;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-	
-	
-	
+
+
 }
