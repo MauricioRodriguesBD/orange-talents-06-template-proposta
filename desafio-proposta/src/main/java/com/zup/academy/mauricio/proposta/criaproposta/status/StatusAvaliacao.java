@@ -6,7 +6,7 @@ import java.util.Map;
 
 public enum StatusAvaliacao {
 
-	ELEGIVEl,
+	ELEGIVEL,
 	NAO_ELEGIVEL,
 	SEM_RESTRICAO,
 	COM_RESTRICAO;

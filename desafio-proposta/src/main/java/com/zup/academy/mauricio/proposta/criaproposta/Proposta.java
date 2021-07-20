@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.zup.academy.mauricio.proposta.cartao.Cartao;
+import com.zup.academy.mauricio.proposta.cartao.CartaoRequest;
 import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.validador.CpfOrCnpj;
 
@@ -99,6 +100,11 @@ public class Proposta {
 
 	public Cartao getCartao() {
 		return cartao;
+	}
+	public CartaoRequest toCartaoRequest() {
+
+		return new CartaoRequest(documento, nome, id);
+
 	}
 
 }

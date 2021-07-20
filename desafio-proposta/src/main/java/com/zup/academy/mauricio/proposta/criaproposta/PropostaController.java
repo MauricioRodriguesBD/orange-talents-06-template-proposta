@@ -1,7 +1,6 @@
 package com.zup.academy.mauricio.proposta.criaproposta;
 
 import java.net.URI;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -19,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.integracao.FeignTeste;
+import com.zup.academy.mauricio.proposta.outros.AssociarCartaoComProposta;
 import com.zup.academy.mauricio.proposta.validador.DocumentosIguaisValidador;
 
 import feign.FeignException;
@@ -43,6 +43,8 @@ public class PropostaController {
 	@Autowired
 	private DocumentosIguaisValidador documentosIguaisValidador;
 
+	private AssociarCartaoComProposta associa;
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cria(@Valid @RequestBody PropostaRequest request, UriComponentsBuilder builder) {
@@ -57,7 +59,6 @@ public class PropostaController {
 		}
 		Proposta proposta = request.toModel();
 		repository.save(proposta);
-		
 
 		try {
 			StatusPropostaRequest statusRequest = new StatusPropostaRequest(proposta);
@@ -74,4 +75,8 @@ public class PropostaController {
 		return ResponseEntity.created(uri).build();
 
 	}
+	
+
+	
+
 }
