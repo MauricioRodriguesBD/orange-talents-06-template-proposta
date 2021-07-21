@@ -106,5 +106,10 @@ public class Proposta {
 		return new CartaoRequest(documento, nome, id);
 
 	}
+	public void toCartaoReponse(Cartao cartao) {
+		this.cartao = cartao;
+	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.zup.academy.mauricio.proposta.criaproposta;
 
 import java.net.URI;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -8,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +48,15 @@ public class PropostaController {
 
 	private AssociarCartaoComProposta associa;
 
+	@GetMapping("/{id}")
+	public ResponseEntity<?> busca(@PathVariable("id") Long id) {
+		Optional<Proposta> proposta = repository.findById(id);
+		if (proposta.isPresent()) {
+			return ResponseEntity.ok(proposta);
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cria(@Valid @RequestBody PropostaRequest request, UriComponentsBuilder builder) {
@@ -75,8 +87,5 @@ public class PropostaController {
 		return ResponseEntity.created(uri).build();
 
 	}
-	
-
-	
 
 }
