@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import com.zup.academy.mauricio.proposta.aviso.Aviso;
 import com.zup.academy.mauricio.proposta.aviso.AvisoRequest;
+import com.zup.academy.mauricio.proposta.biometria.Biometria;
 import com.zup.academy.mauricio.proposta.bloqueio.Bloqueio;
 import com.zup.academy.mauricio.proposta.bloqueio.BloqueioRequest;
 import com.zup.academy.mauricio.proposta.carteira.CarteiraDigital;
@@ -63,6 +64,9 @@ public class Cartao {
 
 	@OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
 	private Vencimento vencimento;
+	
+//	@OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
+//	private Set<Biometria> biometrias = new HashSet<>();
 
 	@OneToOne
 	private Proposta proposta;
