@@ -76,6 +76,8 @@ public class PropostaController {
 			StatusPropostaRequest statusRequest = new StatusPropostaRequest(proposta);
 			StatusPropostaResponse statusResponse = testeFeign.cria(statusRequest);
 			proposta.setStatusAvaliacao(StatusAvaliacao.mapeamento(statusResponse.getRetorno()));
+			//Teste de persistência
+			proposta.setStatusAvaliacao(StatusAvaliacao.ELEGIVEL);
 			repository.save(proposta);
 
 		} catch (FeignException e) {
