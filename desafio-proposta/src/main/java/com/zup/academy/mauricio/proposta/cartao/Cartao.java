@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,66 +47,108 @@ public class Cartao {
 	private String titular;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
-	private Set<Bloqueio> bloqueios = new HashSet<>();
+	private List<Bloqueio> bloqueios;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
-	private Set<Aviso> avisos = new HashSet<>();
+	private List<Aviso> avisos;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
-	private Set<CarteiraDigital> carteiras = new HashSet<>();
+	private List<CarteiraDigital> carteiras;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
-	private Set<Parcela> parcelas = new HashSet<>();
+	private List<Parcela> parcelas;
 
+	@NotNull
 	private BigDecimal limite;
 
-	@OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Renegociacao renegociacao;
 
+	@NotNull
+	@Valid
 	@OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
 	private Vencimento vencimento;
-	
-//	@OneToOne(mappedBy = "cartao", cascade = CascadeType.MERGE)
-//	private Set<Biometria> biometrias = new HashSet<>();
 
+	@NotNull
+	@Valid
 	@OneToOne
 	private Proposta proposta;
 
 	@Deprecated
-	private Cartao() {
+	public Cartao() {
+
 	}
 
-	public Cartao(@NotNull LocalDateTime emitidoEm, @NotBlank String titular,
-			@NotNull @Valid Collection<BloqueioRequest> bloqueios, @NotNull @Valid Collection<AvisoRequest> avisos,
-			@NotNull @Valid Collection<CarteiraDigitalRequest> carteiras,
-			@NotNull @Valid Collection<ParcelaRequest> parcelas, @NotNull BigDecimal limite,
-			@Valid RenegociacaoRequest renegociacao, @NotNull @Valid VencimentoRequest vencimento,
-			@NotNull @Valid Proposta proposta) {
-
+	public Cartao(@NotBlank Long id, LocalDateTime emitidoEm, @NotBlank String titular, List<Bloqueio> bloqueios,
+			List<Aviso> avisos, List<CarteiraDigital> carteiras, List<Parcela> parcelas, @NotNull BigDecimal limite,
+			Renegociacao renegociacao, @NotNull @Valid Vencimento vencimento, @NotNull @Valid Proposta proposta) {
+		super();
+		this.id = id;
 		this.emitidoEm = emitidoEm;
 		this.titular = titular;
-		Set<Bloqueio> novosBloqueios = bloqueios.stream().map(bloqueio -> bloqueio.toModel(this))
-				.collect(Collectors.toSet());
-		this.bloqueios.addAll(novosBloqueios);
-		Set<Aviso> novosAvisos = avisos.stream().map(aviso -> aviso.toModel(this)).collect(Collectors.toSet());
-		this.avisos.addAll(novosAvisos);
-		Set<CarteiraDigital> novasCarteiras = carteiras.stream().map(carteira -> carteira.toModel(this))
-				.collect(Collectors.toSet());
-		this.carteiras.addAll(novasCarteiras);
-		Set<Parcela> novasParcelas = parcelas.stream().map(parcela -> parcela.toModel(this))
-				.collect(Collectors.toSet());
-		this.parcelas.addAll(novasParcelas);
+		this.bloqueios = bloqueios;
+		this.avisos = avisos;
+		this.carteiras = carteiras;
+		this.parcelas = parcelas;
 		this.limite = limite;
-		if (renegociacao == null) {
-			this.renegociacao = null;
-		} else {
-			this.renegociacao = renegociacao.toModel(this);
-		}
+		this.renegociacao = renegociacao;
+		this.vencimento = vencimento;
 		this.proposta = proposta;
-
 	}
+
+	public void addBloqueio(Bloqueio bloqueio) {
+		this.bloqueios.add(bloqueio);
+	}
+
+	public void addAviso(Aviso aviso) {
+		this.avisos.add(aviso);
+	}
+
+
+
 
 	public Long getId() {
 		return id;
 	}
+
+	public LocalDateTime getEmitidoEm() {
+		return emitidoEm;
+	}
+
+	public String getTitular() {
+		return titular;
+	}
+
+	public List<Bloqueio> getBloqueios() {
+		return bloqueios;
+	}
+
+	public List<Aviso> getAvisos() {
+		return avisos;
+	}
+
+	public List<CarteiraDigital> getCarteiras() {
+		return carteiras;
+	}
+
+	public List<Parcela> getParcelas() {
+		return parcelas;
+	}
+
+	public BigDecimal getLimite() {
+		return limite;
+	}
+
+	public Renegociacao getRenegociacao() {
+		return renegociacao;
+	}
+
+	public Vencimento getVencimento() {
+		return vencimento;
+	}
+
+	public Proposta getProposta() {
+		return proposta;
+	}
+
 }

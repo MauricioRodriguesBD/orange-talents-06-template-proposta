@@ -40,7 +40,7 @@ public class BiometriaController {
 
 		repository.save(biometria);
 
-		URI uri = builder.path("cartao/{id}/biometria/{id}").build(biometria.getId());
+		URI uri = builder.path("biometria/{id}").build(biometria.getId());
 		return ResponseEntity.created(uri).build();
 
 	}

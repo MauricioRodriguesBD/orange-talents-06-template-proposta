@@ -3,83 +3,98 @@ package com.zup.academy.mauricio.proposta.cartao;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.zup.academy.mauricio.proposta.aviso.AvisoRequest;
-import com.zup.academy.mauricio.proposta.bloqueio.BloqueioRequest;
-import com.zup.academy.mauricio.proposta.carteira.CarteiraDigitalRequest;
+import com.zup.academy.mauricio.proposta.aviso.Aviso;
+import com.zup.academy.mauricio.proposta.bloqueio.Bloqueio;
+import com.zup.academy.mauricio.proposta.carteira.CarteiraDigital;
 import com.zup.academy.mauricio.proposta.criaproposta.Proposta;
-import com.zup.academy.mauricio.proposta.parcela.ParcelaRequest;
-import com.zup.academy.mauricio.proposta.renegociacao.RenegociacaoRequest;
-import com.zup.academy.mauricio.proposta.vencimento.VencimentoRequest;
+import com.zup.academy.mauricio.proposta.parcela.Parcela;
+import com.zup.academy.mauricio.proposta.renegociacao.Renegociacao;
+import com.zup.academy.mauricio.proposta.vencimento.Vencimento;
 
 public class CartaoResponse {
 
 	@NotBlank
-	private String id;
-
+	private Long id;
 	@NotNull
 	private LocalDateTime emitidoEm;
-
 	@NotBlank
 	private String titular;
-
 	@NotNull
 	@Valid
-	private List<BloqueioRequest> bloqueios = new ArrayList<>();
-
+	private List<Bloqueio> bloqueios = new ArrayList<>();
 	@NotNull
 	@Valid
-	private List<AvisoRequest> avisos = new ArrayList<>();
-
+	private List<Aviso> avisos = new ArrayList<>();
 	@NotNull
 	@Valid
-	private List<CarteiraDigitalRequest> carteiras = new ArrayList<>();
-
+	private List<CarteiraDigital> carteiras = new ArrayList<>();
 	@NotNull
 	@Valid
-	private List<ParcelaRequest> parcelas = new ArrayList<>();
-
+	private List<Parcela> parcelas = new ArrayList<>();
 	@NotNull
 	private BigDecimal limite;
-
 	@Valid
-	private RenegociacaoRequest renegociacao;
-
+	private Renegociacao renegociacao;
 	@NotNull
 	@Valid
-	private VencimentoRequest vencimento;
+	private Vencimento vencimento;
 
-	public CartaoResponse(@NotBlank String id,
-			@NotNull LocalDateTime emitidoEm,
-			@NotBlank String titular,
-			@NotNull @Valid Collection<BloqueioRequest> bloqueios,
-			@NotNull @Valid Collection<AvisoRequest> avisos,
-			@NotNull @Valid Collection<CarteiraDigitalRequest> carteiras, 
-			@NotNull @Valid Collection<ParcelaRequest> parcelas,
-			@NotNull BigDecimal limite, @Valid RenegociacaoRequest renegociacao,
-			@NotNull @Valid VencimentoRequest vencimento) {
-		this.id = id;
-		this.emitidoEm = emitidoEm;
-		this.titular = titular;
-		this.bloqueios.addAll(bloqueios);
-		this.avisos.addAll(avisos);
-		this.carteiras.addAll(carteiras);
-		this.parcelas.addAll(parcelas);
-		this.limite = limite;
-		this.renegociacao = renegociacao;
-		this.vencimento = vencimento;
+	public Long getId() {
+		return id;
 	}
-	
+
+	public LocalDateTime getEmitidoEm() {
+		return emitidoEm;
+	}
+
+	public String getTitular() {
+		return titular;
+	}
+
+	public List<Aviso> getAvisos() {
+		return avisos;
+	}
+
+	public List<CarteiraDigital> getCarteiras() {
+		return carteiras;
+	}
+
+	public List<Parcela> getParcelas() {
+		return parcelas;
+	}
+
+	public BigDecimal getLimite() {
+		return limite;
+	}
+
+	public Renegociacao getRenegociacao() {
+		return renegociacao;
+	}
+
+	public Vencimento getVencimento() {
+		return vencimento;
+	}
+
+	public List<Bloqueio> getBloqueios() {
+		return bloqueios;
+	}
+
+	public Bloqueio getUltimoBloqueio() {
+		return bloqueios.get(bloqueios.size() - 1);
+	}
+
 	public Cartao toModel(Proposta proposta) {
 
-        return new Cartao( emitidoEm, titular, bloqueios, avisos, carteiras, parcelas,
-                          limite, renegociacao, vencimento, proposta);
-    }
+		return new Cartao(this.id, this.emitidoEm, this.titular, this.bloqueios, this.avisos, this.carteiras,
+				this.parcelas, this.limite, this.renegociacao, this.vencimento, proposta);
+	}
 
 }

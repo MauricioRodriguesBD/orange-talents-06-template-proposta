@@ -19,36 +19,55 @@ public class Bloqueio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private LocalDateTime bloqueadoEm = LocalDateTime.now();
-	
+
+	private String idExterno;
+
+	private LocalDateTime bloqueadoEm;
+
 	@NotBlank
 	private String sistemaResponsavel;
-	
+
 	@NotNull
 	private boolean ativo;
-	
-	@ManyToOne
+
 	@NotNull
 	@Valid
+	@ManyToOne
 	private Cartao cartao;
-	
-	@Deprecated
-	private Bloqueio() {}
 
-	public Bloqueio(LocalDateTime bloqueadoEm,
-			@NotBlank String sistemaResponsavel,
-			@NotNull boolean ativo,
-			Cartao cartao) {
+	private String ipCliente;
+
+	private String userAgent;
+
+	@Deprecated
+	public Bloqueio() {
+
+	}
+
+	public Bloqueio(String idExterno, LocalDateTime bloqueadoEm, @NotBlank String sistemaResponsavel,
+			@NotNull boolean ativo, @NotNull @Valid Cartao cartao) {
 		super();
+
+		this.idExterno = idExterno;
 		this.bloqueadoEm = bloqueadoEm;
 		this.sistemaResponsavel = sistemaResponsavel;
 		this.ativo = ativo;
+
+	}
+
+	public void setInformacoesDeRequest(String remoteAddr, String agent, Cartao cartao) {
+
+		this.ipCliente = remoteAddr;
+		this.userAgent = agent;
 		this.cartao = cartao;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getIdExterno() {
+		return idExterno;
 	}
 
 	public LocalDateTime getBloqueadoEm() {
@@ -66,7 +85,13 @@ public class Bloqueio {
 	public Cartao getCartao() {
 		return cartao;
 	}
-	
-	
-	
+
+	public String getIpCliente() {
+		return ipCliente;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+
 }
