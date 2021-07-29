@@ -9,7 +9,7 @@ import com.zup.academy.mauricio.proposta.bloqueio.BloqueioRequest;
 import com.zup.academy.mauricio.proposta.bloqueio.BloqueioResponse;
 import com.zup.academy.mauricio.proposta.cartao.CartaoResponse;
 
-@FeignClient(name = "cartoes",
+@FeignClient(name = "cartao",
 			url = "http://localhost:8888")
 public interface BloqueiaCartaoFeign {
 

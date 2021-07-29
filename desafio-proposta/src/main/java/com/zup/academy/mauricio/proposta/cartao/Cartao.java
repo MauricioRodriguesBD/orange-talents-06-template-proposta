@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -45,6 +47,9 @@ public class Cartao {
 
 	@NotBlank
 	private String titular;
+	
+	@Enumerated(EnumType.STRING)
+	private CartaoStatus cartaoStatus = CartaoStatus.DESBLOQUEADO;
 
 	@OneToMany(mappedBy = "cartao", cascade = CascadeType.MERGE)
 	private List<Bloqueio> bloqueios;
@@ -149,6 +154,12 @@ public class Cartao {
 
 	public Proposta getProposta() {
 		return proposta;
+	}
+	public void bloquea(Bloqueio bloqueio) {
+		this.bloqueios.add(bloqueio);
+	}
+	public boolean verificaBloqueio() {
+		return this.cartaoStatus.equals(CartaoStatus.BLOQUEADO);
 	}
 
 }

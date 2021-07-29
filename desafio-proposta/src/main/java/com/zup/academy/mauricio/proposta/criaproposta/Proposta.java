@@ -26,7 +26,7 @@ public class Proposta {
 	private Long id;
 
 	@CpfOrCnpj
-	@NotNull
+	@NotNull 
 	@Column(nullable = false)
 	private String documento;
 
