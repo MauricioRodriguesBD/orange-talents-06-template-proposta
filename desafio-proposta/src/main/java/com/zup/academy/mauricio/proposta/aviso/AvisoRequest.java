@@ -6,28 +6,37 @@ import com.zup.academy.mauricio.proposta.cartao.Cartao;
 
 public class AvisoRequest {
 
-		private LocalDateTime validoAte;
-		
-		private String destino;
+	private String validoAte;
 
-		public AvisoRequest(LocalDateTime validoAte, String destino) {
-			super();
-			this.validoAte = validoAte;
-			this.destino = destino;
-		}
+	private String destino;
 
-		public LocalDateTime getValidoAte() {
-			return validoAte;
-		}
+	private String ip;
 
-		public String getDestino() {
-			return destino;
-		}
+	private String userAgent;
 
+	private String dataAviso;
 
-		public Aviso toModel(Cartao cartao) {
-	        return new Aviso(validoAte, destino, cartao);
-	    }
-		
-		
+	public AvisoRequest(String validoAte, String destino, String dataAviso, String ip, String userAgent,
+			Cartao cartao) {
+		super();
+		this.validoAte = validoAte;
+		this.destino = destino;
+		this.dataAviso = dataAviso;
+		this.ip = ip;
+
+	}
+
+	public String getValidoAte() {
+		return validoAte;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public Aviso toModel(Cartao cartao) {
+		return new Aviso(LocalDateTime.parse(validoAte), LocalDateTime.parse(dataAviso),destino, ip, userAgent,
+				cartao);
+	}
+
 }
