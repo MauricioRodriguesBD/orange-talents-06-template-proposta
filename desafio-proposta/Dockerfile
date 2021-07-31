@@ -1,4 +1,7 @@
-FROM openjdk:11
+#Cria imagem Utilizando JDK 15
+
+FROM openjdk:11.0.11-jdk-oracle
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "/app.jar"]
