@@ -21,6 +21,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.http.HttpStatus;
+
 import com.zup.academy.mauricio.proposta.aviso.Aviso;
 import com.zup.academy.mauricio.proposta.aviso.AvisoRequest;
 import com.zup.academy.mauricio.proposta.biometria.Biometria;
@@ -28,6 +30,7 @@ import com.zup.academy.mauricio.proposta.bloqueio.Bloqueio;
 import com.zup.academy.mauricio.proposta.bloqueio.BloqueioRequest;
 import com.zup.academy.mauricio.proposta.carteira.CarteiraDigital;
 import com.zup.academy.mauricio.proposta.carteira.CarteiraDigitalRequest;
+import com.zup.academy.mauricio.proposta.carteira.TipoCarteira;
 import com.zup.academy.mauricio.proposta.criaproposta.Proposta;
 import com.zup.academy.mauricio.proposta.parcela.Parcela;
 import com.zup.academy.mauricio.proposta.parcela.ParcelaRequest;
@@ -160,6 +163,14 @@ public class Cartao {
 	}
 	public boolean verificaBloqueio() {
 		return this.cartaoStatus.equals(CartaoStatus.BLOQUEADO);
+	}
+	
+	public Object adiciona(TipoCarteira tipo, CarteiraDigital carteira) {
+		if(carteira.getCarteira().equals(tipo)) {
+			return this.carteiras.add(carteira);
+			
+		}
+		return HttpStatus.BAD_REQUEST;
 	}
 
 }

@@ -16,13 +16,16 @@ public class CarteiraDigitalRequest {
 	private LocalDateTime associadaEm;
 	
 	@NotBlank
-	private String emissor;
+	private TipoCarteira tipo;
 
-	public CarteiraDigitalRequest(@NotBlank @Email String email, LocalDateTime associadaEm, @NotBlank String emissor) {
+	
+
+	public CarteiraDigitalRequest(@NotBlank @Email String email, LocalDateTime associadaEm,
+			@NotBlank TipoCarteira tipo) {
 		super();
 		this.email = email;
 		this.associadaEm = associadaEm;
-		this.emissor = emissor;
+		this.tipo = tipo;
 	}
 
 	public String getEmail() {
@@ -33,12 +36,12 @@ public class CarteiraDigitalRequest {
 		return associadaEm;
 	}
 
-	public String getEmissor() {
-		return emissor;
+	public TipoCarteira getTipo() {
+		return tipo;
 	}
+
 	
-	public CarteiraDigital toModel(Cartao cartao) {
-		return new CarteiraDigital(this.email, this.associadaEm, this.emissor, cartao);
-	}
+	
+	
 	
 }

@@ -25,10 +25,16 @@ public class CarteiraDigital {
 	@NotBlank
 	private String email;
 	
-	private LocalDateTime associadaEm = LocalDateTime.now();
+	@NotBlank
+	private String carteira;
 	
+	private LocalDateTime associadaEm;
 	@NotBlank
 	private String emissor;
+	
+	private String ipCliente;
+	
+	private String userAgent;
 	
 	@ManyToOne
 	@Valid
@@ -38,10 +44,11 @@ public class CarteiraDigital {
 	@Deprecated
 	private CarteiraDigital() {}
 
-	public CarteiraDigital(@Email @NotBlank String email, LocalDateTime associadaEm, @NotBlank String emissor,
+	public CarteiraDigital(@Email @NotBlank String email,@NotBlank String carteira, LocalDateTime associadaEm, @NotBlank String emissor,
 			Cartao cartao) {
 		super();
 		this.email = email;
+		this.carteira = carteira;
 		this.associadaEm = associadaEm;
 		this.emissor = emissor;
 		this.cartao = cartao;
@@ -65,6 +72,24 @@ public class CarteiraDigital {
 
 	public Cartao getCartao() {
 		return cartao;
+	}
+
+	public String getCarteira() {
+		return carteira;
+	}
+
+	public String getIpCliente() {
+		return ipCliente;
+	}
+
+	public String getUserAgent() {
+		return userAgent;
+	}
+	
+	public void setInformacoes(String remoteAddr,String agent,Cartao cartao) {
+		this.ipCliente = remoteAddr;
+		this.userAgent = agent;
+		this.cartao = cartao;
 	}
 	
 	
