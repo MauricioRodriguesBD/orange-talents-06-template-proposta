@@ -9,6 +9,7 @@ import javax.validation.constraints.Positive;
 
 import com.zup.academy.mauricio.proposta.criaproposta.status.StatusAvaliacao;
 import com.zup.academy.mauricio.proposta.validador.CpfOrCnpj;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class PropostaRequest {
 
@@ -65,8 +66,8 @@ public class PropostaRequest {
 	}
 
 	public Proposta toModel() {
-
-		return new Proposta(documento, email, nome, endereco, salario);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return new Proposta(encoder.encode(documento), email, nome, endereco, salario);
 	}
 	
 	

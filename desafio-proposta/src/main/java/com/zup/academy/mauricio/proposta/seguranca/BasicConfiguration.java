@@ -19,7 +19,7 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 								.hasAuthority("SCOPE_propostas:read").antMatchers(HttpMethod.GET, "/api/cartoes/**")
 								.hasAuthority("SCOPE_cartoes:read").antMatchers(HttpMethod.POST, "/api/cartoes/**")
 								.hasAuthority("SCOPE_cartoes:write").antMatchers(HttpMethod.POST, "/api/propostas/**")
-								.hasAuthority("SCOPE_propostas:write").anyRequest().authenticated())
+								.hasAuthority("SCOPE_propostas:write").anyRequest().hasAnyAuthority())
 				.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 
 	}
